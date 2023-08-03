@@ -1,11 +1,13 @@
-interface User {
+export interface User {
   username: string;
   password: string;
   email?: string;
   token?: string;
 }
 
-export function loginForm(): HTMLFormElement {
+export function loginForm(
+  onSuccess: (user: Partial<User>) => Promise<void>
+): HTMLFormElement {
   const userForm = document.createElement('form');
 
   const [usernameLabel, usernameInput] = [
@@ -43,14 +45,17 @@ export function loginForm(): HTMLFormElement {
       password: passwordInput.value,
     };
     console.table(user);
-    await handleUserData(user);
+    await handleUserData(user, onSuccess);
   });
 
   return userForm;
 }
 
-async function handleUserData({ username, password }: User): Promise<User|void> {
-  console.log('in handle data')
+async function handleUserData(
+  { username, password }: User,
+  onSuccess: (user: Partial<User>) => Promise<void>
+): Promise<User | void> {
+  console.log('in handle data');
   const res = await fetch(
     'https://matrix-fakebook-123.onrender.com/api/sign-in',
     {
@@ -67,6 +72,8 @@ async function handleUserData({ username, password }: User): Promise<User|void> 
   if (res.ok) {
     const data = await res.json();
     console.log(data, 'from api call');
+    await onSuccess({username: username, token: data.access_token})
+    console.log('test')
     return data;
   } else window.alert('Invalid login ');
 }
