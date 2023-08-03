@@ -21,6 +21,7 @@ formComponent.locationTop = 5
 formComponent.height = 4
 formComponent.width = 3
 
+
 canvas.addWidget(formComponent)
 
 console.log(canvas, leftLeaningContainer, rightLeaningContainer, circleContainer, component)

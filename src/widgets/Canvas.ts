@@ -28,6 +28,7 @@ export default class Canvas {
   private buildWidget(widget: Component): void{
     const div = this.initializeDiv(widget)
     this.buildShape(widget, div)
+    // div.appendChild(widget.content)
     this.placeShape(widget, div)
     this.parent.append(div)
   }
