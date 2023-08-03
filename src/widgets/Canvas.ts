@@ -21,6 +21,15 @@ export default class Canvas {
 
   public addWidget(widget: Component) {
     this._widgets.push(widget);
+    // widget.canvas = this
+    this.buildWidget(widget)
+  }
+
+  private buildWidget(widget: Component): void{
+    const div = this.initializeDiv(widget)
+    this.buildShape(widget, div)
+    this.placeShape(widget, div)
+    this.parent.append(div)
   }
 
   private initializeDiv(widget: Component): HTMLDivElement {
@@ -55,10 +64,6 @@ export default class Canvas {
     }
     Object.assign(div.style, styles)
   }
-  private buildWidget(widget: Component): void{
-    const div = this.initializeDiv(widget)
-    this.buildShape(widget, div)
-    this.placeShape(widget, div)
-  }
+  
 }
 
