@@ -1,6 +1,12 @@
 import { Containerable } from './types';
 
 export default abstract class Container implements Required<Containerable> {
+  public get color() {
+    return this._color;
+  }
+  public set color(value) {
+    this._color = value;
+  }
   get zIndex() {
     return this._zIndex;
   }
@@ -43,6 +49,7 @@ export default abstract class Container implements Required<Containerable> {
   public get attributes(): Containerable {
     return {
       backgroundColor: this.backgroundColor,
+      color: this.color,
       borderColor: this.borderColor,
       borderRadius: this.borderRadius,
       borderStyle: this.borderStyle,
@@ -53,6 +60,7 @@ export default abstract class Container implements Required<Containerable> {
 
   constructor(
     private _backgroundColor = 'black',
+    private _color = 'white',
     private _borderColor = 'white',
     private _borderRadius = '0px',
     private _borderStyle = 'solid',
