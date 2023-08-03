@@ -50,8 +50,9 @@ export function loginForm(): HTMLFormElement {
 }
 
 async function handleUserData({ username, password }: User): Promise<User|void> {
+  console.log('in handle data')
   const res = await fetch(
-    'http://127.0.0.1:5000/api/sign-in',
+    'https://matrix-fakebook-123.onrender.com/api/sign-in',
     {
       method: 'POST',
       headers: {
