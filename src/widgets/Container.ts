@@ -1,51 +1,62 @@
+import { Containerable } from './types';
 
-export default abstract class Container {
-  protected get zIndex() {
+export default abstract class Container implements Required<Containerable> {
+  get zIndex() {
     return this._zIndex;
   }
-  protected set zIndex(value) {
+  set zIndex(value) {
     this._zIndex = value;
   }
-  protected get borderWidth() {
+  get borderWidth() {
     return this._borderWidth;
   }
-  protected set borderWidth(value) {
-    if(parseInt(value.substring(0,3)) < 10){
+  set borderWidth(value) {
+    if (parseInt(value.substring(0, 3)) < 10) {
       this._borderWidth = value;
     }
   }
-  protected get borderStyle() {
+  get borderStyle() {
     return this._borderStyle;
   }
-  protected set borderStyle(value) {
+  set borderStyle(value) {
     this._borderStyle = value;
   }
-  protected get borderRadius() {
+  get borderRadius() {
     return this._borderRadius;
   }
-  protected set borderRadius(value) {
+  set borderRadius(value) {
     this._borderRadius = value;
   }
-  protected get borderColor() {
+  get borderColor() {
     return this._borderColor;
   }
-  protected set borderColor(value) {
+  set borderColor(value) {
     this._borderColor = value;
   }
-  protected get backgroundColor() {
+  get backgroundColor() {
     return this._backgroundColor;
   }
-  protected set backgroundColor(value) {
+  set backgroundColor(value) {
     this._backgroundColor = value;
   }
-  
+
+  public get attributes(): Containerable {
+    return {
+      backgroundColor: this.backgroundColor,
+      borderColor: this.borderColor,
+      borderRadius: this.borderRadius,
+      borderStyle: this.borderStyle,
+      borderWidth: this.borderWidth,
+      zIndex: this.zIndex,
+    };
+  }
+
   constructor(
     private _backgroundColor = 'black',
     private _borderColor = 'white',
     private _borderRadius = '0px',
     private _borderStyle = 'solid',
     private _borderWidth = '2px',
-    private _zIndex = 0,
-  ){}
-
+    private _zIndex = 0
+  ) {}
 }
