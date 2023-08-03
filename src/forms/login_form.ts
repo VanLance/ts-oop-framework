@@ -72,6 +72,7 @@ async function handleUserData(
   if (res.ok) {
     const data = await res.json();
     console.log(data, 'from api call');
+    console.log(data.access_token, 'from callback')
     await onSuccess({username: username, token: data.access_token})
     console.log('test')
     return data;

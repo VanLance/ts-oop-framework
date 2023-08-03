@@ -28,16 +28,21 @@ formComponent.content = userForm
 canvas.addWidget(formComponent)
 
 async function addPostWidget(user: Partial<User>):Promise<void>{
+  console.log('IN POSTWIDGET', user)
+  
   const postComponent = new Component(canvas)
   postComponent.locationTop = 6
   postComponent.locationLeft = 6
-  // const p = document.createElement('p')
-  await getPost(user)
+  const p = document.createElement('p')
+  p.innerText = await getPost(user)
+  postComponent.content = p
+  canvas.addWidget(postComponent)
 }
 
 async function getPost({username, token}: Partial<User>): Promise<string>{
+  console.log('IN POST')
   const res = await fetch(`https://matrix-fakebook-123.onrender.com/api/user-posts/${username}`, {
-    method : "POST",
+    method : "GET",
     headers : {
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json'
@@ -46,7 +51,9 @@ async function getPost({username, token}: Partial<User>): Promise<string>{
   if (res.ok){
     const data = await res.json()
     console.log(data,'success')
-    return ''
+    console.log(data.posts[Math.floor(Math.random() * data.posts.length)])
+    
+    return data.posts[Math.floor(Math.random() * data.posts.length)].body
   }
   console.log('fail')
   return 'Try Again'
