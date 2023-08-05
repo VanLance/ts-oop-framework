@@ -52,7 +52,6 @@ async function getPost({username, token}: Partial<User>): Promise<string>{
     const data = await res.json()
     console.log(data,'success')
     console.log(data.posts[Math.floor(Math.random() * data.posts.length)])
-    
     return data.posts[Math.floor(Math.random() * data.posts.length)].body
   }
   console.log('fail')
